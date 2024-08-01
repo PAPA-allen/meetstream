@@ -18,7 +18,7 @@ export const SidebarTabs=[
         name:"Previous",
         route:"/previous",
         imgUrl:"/icons/previous.svg" 
-    }, 
+    },  
     {
         name:"Private Room",
         route:"/private-room",
