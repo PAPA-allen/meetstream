@@ -37,7 +37,7 @@ if(!call){
 }
  router.push(`/meeting/${meetingId}?personal=true`)
   }
-     const meetingLink = `${process.env.NEXT_PUBLIC_BASE_URL}/meeting/${meetingId} ? personal = true`
+     const meetingLink =`${process.env.NEXT_PUBLIC_BASE_URL}/meeting/${meetingId}?personal=true`
   return (
     <section className="flex size-full gap-4 flex-col">
       <h1 className="text-3xl font-bold">
