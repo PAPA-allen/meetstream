@@ -1,5 +1,4 @@
 "use client"
-import { tokenProvider } from '@/actions/stream.actions';
 import Loader from '@/components/Loader';
 import { useUser } from '@clerk/nextjs';
 import {
@@ -10,6 +9,14 @@ import { useEffect, useState } from 'react';
 
 const apiKey = process.env.NEXT_PUBLIC_STREAM_API_KEY;
 
+const tokenProvider = async () => {
+    const response = await fetch('/api/token');
+    if (!response.ok) {
+        throw new Error('Failed to get token');
+    }
+    const data = await response.json();
+    return data.token;
+};
 
 const StreamVideoProvider = ({ children }: { children: React.ReactNode }) => {
     const [videoClient, setVideoClient] = useState<StreamVideoClient>();
