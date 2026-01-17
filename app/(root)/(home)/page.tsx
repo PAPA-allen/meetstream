@@ -11,7 +11,6 @@ export default function Home() {
     <section className="flex size-full gap-4 flex-col">
       <div className="h-[300px] rounded-lg w-full bg-hero bg-cover">
         <div className="flex flex-col h-full lg:p-11 px-6 py-8 justify-between">
-          <h2 className=" py-2">Meeting at 3:00 pm</h2>
           <div className="flex flex-col gap-2">
             <h1 className="font-extrabold text-3xl lg:text-5xl animate-pulse transition">
               {time}
