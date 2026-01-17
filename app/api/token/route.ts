@@ -1,31 +1,31 @@
 import { StreamClient } from "@stream-io/node-sdk";
-import { currentUser } from "@clerk/nextjs/server";
+import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
 const apiKey = process.env.NEXT_PUBLIC_STREAM_API_KEY;
 const apiSecret = process.env.STREAM_SECRET_KEY;
 
 export async function GET() {
-  const user = await currentUser();
+    const { userId } = await auth();
 
-  if (!user) {
-    return NextResponse.json({ error: "User not logged in" }, { status: 401 });
-  }
-  
-  if (!apiKey) {
-    return NextResponse.json({ error: "No API key" }, { status: 500 });
-  }
-  
-  if (!apiSecret) {
-    return NextResponse.json({ error: "No API secret" }, { status: 500 });
-  }
+    if (!userId) {
+        return NextResponse.json({ error: "User not logged in" }, { status: 401 });
+    }
 
-  const client = new StreamClient(apiKey, apiSecret);
+    if (!apiKey) {
+        return NextResponse.json({ error: "No API key" }, { status: 500 });
+    }
 
-  const exp = Math.round(new Date().getTime() / 1000) + 60 * 60;
-  const issued = Math.floor(Date.now() / 1000) - 60;
+    if (!apiSecret) {
+        return NextResponse.json({ error: "No API secret" }, { status: 500 });
+    }
 
-  const token = client.createToken(user.id, exp, issued);
+    const client = new StreamClient(apiKey, apiSecret);
 
-  return NextResponse.json({ token });
+    const exp = Math.round(new Date().getTime() / 1000) + 60 * 60;
+    const issued = Math.floor(Date.now() / 1000) - 60;
+
+    const token = client.createToken(userId, exp, issued);
+
+    return NextResponse.json({ token });
 }
